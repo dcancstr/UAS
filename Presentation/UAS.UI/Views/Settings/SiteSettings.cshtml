@@ -1,0 +1,121 @@
+﻿@using Microsoft.Extensions.Options;
+@using UAS.Application.Helpers.Abstract;
+@{
+    ViewData["Title"] = "Site Ayarları";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model SiteSettingsUpload
+@inject IOptionsSnapshot<SiteSettingsUpload> _siteSettingsUpload
+
+
+<form asp-controller="Settings" asp-action="SettingsUpload" method="post" enctype="multipart/form-data">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-4">
+                <div class="card mb-5" style="height:700px;">
+                    <div class="card-header ">
+                        <h3>Mail Ayarları</h3>
+                    </div>
+                    <hr />
+                    <div class="card-body">
+                        <p class="card-text">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label text-info">Mail Sunucu Adresi</label>
+                                <input type="text" class="form-control" asp-for="MailSunucuAdresi">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label text-info">Mail Sunucu Portu</label>
+                                <input type="text" class="form-control" asp-for="MailSunucuPortu">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label text-info">Mail Adresi</label>
+                                <input type="text" class="form-control" asp-for="MailAdresi">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label text-info">Mail Şifresi</label>
+                                <input type="text" class="form-control" asp-for="MailSifresi">
+                            </div>
+                        </p>
+                        <hr style="margin-top:120px;" />
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card mb-5" style="height:700px;">
+                    <div class="card-header">
+                        <h3>Sms Ayarları</h3>
+                    </div>
+                    <hr />
+                    <div class="card-body">
+                        <p class="card-text">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label text-info">Api Url</label>
+                                <input type="text" class="form-control" asp-for="SmsApiUrl">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label text-info">Api ID</label>
+                                <input type="text" class="form-control" asp-for="SmsApiId">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label text-info">Api Key</label>
+                                <input type="text" class="form-control" asp-for="SmsApiKey">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label text-info">Gönderici</label>
+                                <input type="text" class="form-control" asp-for="SmsGonderici">
+                            </div>
+                        </p>
+                        <hr style="margin-top:120px;" />
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card mb-5" style="height:700px;">
+                    <div class="card-header">
+                        <h3>Kurum Ayarları</h3>
+                    </div>
+                    <hr />
+                    <div class="card-body">
+                        <p class="card-text">
+                            <div class="row mb-5">
+                                <div class="col-4 text-info">
+                                    <p>Logo</p>
+                                </div>
+                                <div class="col-4">
+                                    <img src="~/@_siteSettingsUpload.Value.LogoUrl" style="height:60px;width:100px;" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4 text-info">
+                                    <p>Giriş Resmi</p>
+                                </div>
+                                <div class="col-4">
+                                    <img src="~/@_siteSettingsUpload.Value.LayoutImageUrl" style="height:60px;width:100px;" />
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label text-info">Kurum Adı</label>
+                                <input type="text" class="form-control" asp-for="SiteName">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label text-info">Logo Seçin</label>
+                                <input class="form-control" type="file" asp-for="Logo">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label text-info">Giriş Resim Seçin</label>
+                                <input class="form-control" type="file" asp-for="LayoutImage">
+                            </div>
+                        </p>
+                        <hr />
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

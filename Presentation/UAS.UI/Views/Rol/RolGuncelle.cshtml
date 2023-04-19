@@ -1,0 +1,212 @@
+﻿@{
+    ViewData["Title"] = "RolGuncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model UAS.Application.Dto.Rol.UpdateRoleAssignMenuListe
+
+
+
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="card col-6">
+            <h3 class="card-header font-weight-bold">Rol Güncelle</h3>
+            <hr />
+            <div class="card-body">
+                <form asp-action="RolGuncelle" asp-controller="Rol" method="post" id="roleListForm">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Roller</label>
+                                <select id="RollerSelect2" class="select2 form-select form-select-lg" data-allow-clear="true">
+                                    <option></option>
+                                    @foreach (var role in Model.UpdateRoleAssignMenuGetRoles)
+                                    {
+                                        <option value="@role.Id">@role.personelRolTipAd</option>
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="RolAdi" class="form-label">Rol Adı</label>
+                                <input type="text" class="form-control" id="RolAdi" asp-for="@Model.RoleName">
+                                <input type="hidden" value="@Model.RoleId" id="RoleIdInput" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="RoleSMI" @(Model.IsChecked ? "checked" : "")>
+                                <label class="form-check-label">
+                                    Sil
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            @*<button type="submit" class="btn btn-success">izinleri getir</button>*@
+                        </div>
+                    </div>
+                    <hr />
+                    <ul>
+                        @if (Model.UpdateRoleAssignMenus.Count > 0 && Model.UpdateRoleAssignMenus != null)
+                        {
+                            @for (int i = 1; i < Model.UpdateRoleAssignMenus.Count + 1; i++)
+                            {
+                                @if (Model.UpdateRoleAssignMenus[i - 1].menuUstID == 0)
+                                {
+                                    <li>
+                                        <div class="mb-1">
+                                            <input type="checkbox" class="single-role permission-checkbox" @(Model.UpdateRoleAssignMenus[i - 1].IsChecked ? "checked" : "") id="@Model.UpdateRoleAssignMenus[i-1].Id" />
+                                            <label class=""
+                                       asp-for="@Model.UpdateRoleAssignMenus[i-1].Id">
+                                                @Model.UpdateRoleAssignMenus[i-1].menuAd
+                                            </label>
+                                            <input type="hidden" asp-for="@Model.UpdateRoleAssignMenus[i-1].Id" />
+                                            <input type="hidden" asp-for="@Model.UpdateRoleAssignMenus[i-1].menuAd" />
+                                            <input type="hidden" asp-for="@Model.UpdateRoleAssignMenus[i-1].menuUstID" />
+                                        </div>
+                                        <ul>
+                                            @for (int y = 1; y < Model.UpdateRoleAssignMenus.Count + 1; y++)
+                                            {
+                                                @if (Model.UpdateRoleAssignMenus[i - 1].Id
+                                               == Model.UpdateRoleAssignMenus[y - 1].menuUstID)
+                                                {
+                                                    <li>
+                                                        <div class="mb-1">
+                                                            <input type="checkbox" class="single-role permission-checkbox child-item" @(Model.UpdateRoleAssignMenus[y - 1].IsChecked ? "checked" : "") id="@Model.UpdateRoleAssignMenus[y-1].Id" data-parent-id="@Model.UpdateRoleAssignMenus[i-1].Id" />
+                                                            <label class=""
+                                               asp-for="@Model.UpdateRoleAssignMenus[y-1].Id">
+                                                                @Model.UpdateRoleAssignMenus[y-1].menuAd
+                                                            </label>
+                                                            <input type="hidden" asp-for="@Model.UpdateRoleAssignMenus[y-1].Id" />
+                                                            <input type="hidden" asp-for="@Model.UpdateRoleAssignMenus[y-1].menuAd" />
+                                                            <input type="hidden" asp-for="@Model.UpdateRoleAssignMenus[y-1].menuUstID" />
+                                                        </div>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+                    <button type="submit" id="updateRoleForm" class="btn btn-primary">Güncelle</button>
+                </form>
+                <form asp-action="RolGuncellePost" asp-controller="Rol" method="post" id="roleForm">
+                    <input id="dataFormInput" type="hidden" name="data" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            const roleListObj = {
+                permissionList: []
+            };
+            const formSubmitBtn = document.getElementById("updateRoleForm");
+            formSubmitBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                const roleList = document.querySelectorAll(".single-role");
+                const checkIfRoleIsDeleted = document.getElementById("RoleSMI");
+                roleListObj.isRoleDeleted = Boolean(checkIfRoleIsDeleted.checked);
+                roleListObj.roleName = $('#RolAdi').val();
+                roleListObj.roleId = $('#RoleIdInput').val();
+                roleList.forEach(item => {
+                    roleListObj.permissionList.push({
+                        isChecked: item.checked,
+                        permissionId: Number(item.id)
+                    })
+                });
+                document.getElementById("dataFormInput").value = JSON.stringify(roleListObj);
+                document.getElementById("roleForm").submit();
+            });
+            $('#RollerSelect2').select2({
+                placeholder: 'Rol Seçiniz...'
+            }).on('change', function () {
+                var data = $("#RollerSelect2 option:selected").text();
+                $('#RolAdi').val(data);
+                roleListObj.roleName = $("#RollerSelect2 option:selected").text();
+                document.getElementById("roleListForm").submit();
+            });
+        });
+
+        $(document).ready(function () {
+            $('.permission-checkbox').change(function () {
+                var parent = $(this).closest('li'); // en yakın li öğesini bul
+                var children = parent.find('input[type="checkbox"]'); // alt izin kutularını bul
+
+                // Eğer üst izin kutusu seçiliyse, alt izin kutularını da seç
+                if ($(this).is(':checked')) {
+                    children.prop('checked', true);
+
+                    // Üst düzey onay kutusu da seçili hale getir
+                    var topLevelParent = parent.closest('ul').closest('li');
+                    if (topLevelParent.length > 0) {
+                        var topLevelCheckbox = topLevelParent.find('input[type="checkbox"]');
+                        if (!topLevelCheckbox.is(':checked')) {
+                            topLevelCheckbox.prop('checked', true);
+                        }
+                    }
+                }
+                // Eğer üst izin kutusu seçili değilse, alt izin kutularını kaldır
+                else {
+                    children.prop('checked', false);
+
+                    // Hiçbir alt düzey onay kutusu seçili değilse, üst düzey onay kutusu da kaldır
+                    var allChildrenUnchecked = true;
+                    parent.closest('ul').find('input[type="checkbox"]').each(function () {
+                        if ($(this).is(':checked')) {
+                            allChildrenUnchecked = false;
+                            return false; // foreach loop'unu durdurmak için
+                        }
+                });
+
+                if (allChildrenUnchecked) {
+                    var topLevelParent = parent.closest('ul').closest('li');
+                    if (topLevelParent.length > 0) {
+                        topLevelParent.find('input[type="checkbox"]').prop('checked', false);
+                    }
+                }
+            }
+            });
+
+            //Alt checkbox seçilirse, üst checkbox da seçilecek
+            const childItems = document.querySelectorAll('.child-item');
+
+            childItems.forEach(child => {
+                child.addEventListener('change', function () {
+                    const parentId = child.getAttribute('data-parent-id');
+                    const parent = document.getElementById(parentId);
+
+                    if (child.checked && parent && !parent.checked) {
+                        parent.checked = true;
+                    }
+                });
+            });
+
+        });
+        
+
+    </script>
+}
+
+
+
+
+
+
+

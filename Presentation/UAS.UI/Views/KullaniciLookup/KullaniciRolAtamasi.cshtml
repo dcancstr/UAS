@@ -1,0 +1,159 @@
+﻿@{
+    ViewData["Title"] = "Kullanıcı Rol Atama";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Stylesheet{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+
+    <style>
+        div.dataTables_filter {
+            display: inline-block;
+            float: right;
+        }
+
+        div.dataTables_length {
+            display: inline-block;
+            float: left;
+        }
+    </style>
+
+}
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="card col-md-6">
+            <h3 class="card-header font-weight-bold">Kullanıcı Rol Ataması</h3>
+            <hr />
+
+            <div class="card-body">
+                <div class="form-group row mb-3">
+                    <label for="userDropdown" class="form-label">Kullanıcılar</label>
+                    <select id="userDropdown" class="form-control selectpicker" title="Kullanıcı Seçiniz." data-live-search="true">
+                    </select>
+                </div>
+                <div class="form-group row mb-3">
+                    <label for="roleDropdown" class="form-label">Roller</label>
+                    <select id="roleDropdown" class="form-control selectpicker" title="Rol Seçiniz." data-live-search="true">
+                    </select>
+                </div>
+                <div class="form-group row mb-3">
+                    <button id="kaydet" type="button" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action("UpdatePersonelRolGetUsers","Rol")',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var dropdown = $('#userDropdown');
+                    dropdown.empty();
+                    $.each(response, function (index, item) {
+                        var opt = dropdown.append($('<option>', {
+                            value: item.id,
+                            text: item.userName,
+                            'data-role-id': item.personelRolTipID,
+                            'data-role-ad': item.personelRolTipAd
+                        }));
+
+
+                    });
+                    dropdown.selectpicker("refresh");
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("GetAllPersonelRolTipsJSON","Rol")',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var dropdown = $('#roleDropdown');
+                    dropdown.empty();
+                    $.each(data, function (index, item) {
+                        dropdown.append($('<option>', {
+                            value: item.id,
+                            text: item.personelRolTipAd
+                        }))
+                    });
+                    dropdown.selectpicker("refresh");
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+            $(document).on("click", "#kaydet", function () {
+                var userId = $("#userDropdown").val();
+                var roleId = $("#roleDropdown").val();
+                var newRoleName = $("#roleDropdown option:selected").text();
+                var currentRoleName = $("#userDropdown option:selected").data("role-ad");
+                Swal.fire({
+                    title: 'Emin misiniz?',
+                    html: "Kullanıcının rolünü değiştirmek üzeresiniz!" +
+                        "<br>Kullanıcının mevcut rolü: <b>" + currentRoleName + "</b>" +
+                        "<br>Kullanıcının yeni rolü: <b>" + newRoleName +"</b>",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Evet!',
+                    cancelButtonText: 'Vazgeç'
+                }).then((result) => {
+                    var formData = new FormData();
+                    formData.append("appUserId", userId);
+                    formData.append("personelRolTipId", roleId);
+                    $.ajax({
+                        url: '@Url.Action("AddPersonelRol","Rol")',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Kullanıcı başarıyla güncellendi.',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            }
+
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error);
+                        }
+                    });
+                });
+
+            });
+            $("#userDropdown").on("changed.bs.select", function () {
+                var currentRol = $("#userDropdown option:selected").data("role-id");
+                $("#roleDropdown").selectpicker('val', currentRol.toString());
+                /* if (currentRol != null) {
+                     $("#roleDropdown").selectpicker("val",currentRol);
+                 }
+                 else {
+                     $("#roleDropdown").selectpicker('val',-1);
+                 }*/
+            });
+        });
+    </script>
+}

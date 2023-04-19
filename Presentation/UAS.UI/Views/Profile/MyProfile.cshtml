@@ -1,0 +1,204 @@
+﻿@{
+    ViewData["Title"] = "Profilim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model GetUserResponse
+<div class="container mt-5">
+    <form asp-controller="Profile" asp-action="ProfileGenelBilgilerUpdate" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <div class="row">
+            <div class="card">
+                <h4 class="card-header mb-2">Genel Bilgiler</h4>
+                <div class="card-body">
+                    @*<h5 class="card-title">Genel Bilgiler</h5>*@
+                    <p class="card-text">
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                @{
+                                    if (Model.PersonelImageUrl != null)
+                                    {
+                                        <img src="~/@Model.PersonelImageUrl" alt="profil resmi" height="100" width="100" class="rounded-circle" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/SiteResim/defaultProfileImage.png" alt="profil resmi" height="100" width="100" class="rounded-circle" />
+                                    }
+                                }
+
+                            </div>
+                            <div class="col-9"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Ad</label>
+                                    <input type="text" class="form-control" id="exampleFormControlInput1" asp-for="Name">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput2" class="form-label">Soyad</label>
+                                    <input type="text" class="form-control" id="exampleFormControlInput2" asp-for="Surname">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput3" class="form-label">Adres</label>
+                                    <input type="text" class="form-control" id="exampleFormControlInput3" asp-for="Address">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput4" class="form-label">T.C Kimlik No</label>
+                                    <input type="text" class="form-control" id="exampleFormControlInput4" asp-for="TcKimlikNo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput5" class="form-label">Doğum Yılı</label>
+                                    <input type="text" class="form-control" id="exampleFormControlInput5" asp-for="PersonelDogumYili">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                            </div>
+                        </div>
+                    </p>
+                    <button type="submit" id="personelUpdate" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="card">
+                    <h5 class="card-header">Mail Güncelle</h5>
+                    <div class="card-body">
+                        @*<h5 class="card-title">Special title treatment</h5>*@
+                        <p class="card-text">
+                            <div class="card text-dark bg-info bg-gradient mb-3">
+                                @*<div class="card-header">Header</div>*@
+                                <div class="card-body">
+                                    @*<h5 class="card-title">Info card title</h5>*@
+                                    <p class="card-text">
+                                        Mail adresinizi yazın ve Güncelle butonuna basın. Mail'e gelen bağlantıya tıklayınız.
+                                    </p>
+                                </div>
+                            </div>
+                        </p>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput6" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput6" placeholder="name@example.com" asp-for="Email">
+                        </div>
+                        <button type="submit" id="sendEmail" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <h5 class="card-header">Telefon Güncelle</h5>
+                    <div class="card-body">
+                        @*<h5 class="card-title">Special title treatment</h5>*@
+                        <p class="card-text">
+                            <div class="card text-dark bg-info bg-gradient mb-3">
+                                @*<div class="card-header">Header</div>*@
+                                <div class="card-body">
+                                    @*<h5 class="card-title">Info card title</h5>*@
+                                    <p class="card-text">
+                                        Telefon numaranızı yazın ve sms gönder butonuna basın. Sms ile gelen kodu onay kodu kısmına yazıp numaramı güncelle butonuna basınız.
+                                    </p>
+                                </div>
+                            </div>
+                        </p>
+                        <label class="form-label" for="phone-number-mask">Phone Number</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">TR (+90)</span>
+                            <input type="text"
+                                   id="phone-number-mask"
+                                   class="form-control phone-number-mask"
+                                   placeholder="555 555 55 55" maxlength="10" asp-for="PhoneNumber" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5 mb-5">
+            <div class="card">
+                <h5 class="card-header">Resim Yükle & Değiştir</h5>
+                <div class="card-body">
+                    @*<h5 class="card-title">Special title treatment</h5>*@
+                    <p class="card-text">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-4 d-flex ">
+                                    @*<h5 class="card-header">Basic</h5>*@
+                                    <div class="card-body" style="cursor:pointer">
+                                        @*<form action="/upload" class="dropzone needsclick" id="dropzone-basic" enctype="multipart/form-data">*@
+
+                                        <div class="dz-message needsclick">
+                                            <span>
+
+                                                Resim yüklemek için tıklayınız
+                                            </span>
+                                            @*<span class="note needsclick">
+                                            (This is just a demo dropzone. Selected files are <strong>not</strong> actually
+                                            uploaded.)
+                                            </span>*@
+
+
+                                        </div>
+                                        <div class="fallback">
+
+                                            <input id="file" onchange="previewImage(event)" hidden name="file" type="file" asp-for="PersonelImage" />
+
+                                            <div class="card col-sm-2">
+
+                                            <img id="preview" class="card-img-top " loading="lazy" width="200px" />
+                                            </div>
+
+
+
+
+
+                                        </div>
+
+                                        @*</form>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p>
+                    <button type="submit" id="btnUploadFile" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+
+    </form>
+
+</div>
+</div>
+@section Scripts{
+
+    <script>
+        $(".dz-message").click(() => {
+            $("#file").click();
+        });
+
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+
+                var preview = document.getElementById('preview');
+                preview.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+
+
+
+    </script>
+}
+

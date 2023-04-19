@@ -1,0 +1,117 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = UAS.UI
+build_property.RootNamespace = UAS.UI
+build_property.ProjectDir = /Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.MSBuildProjectDirectory = /Users/dcancstr/Desktop/UASS/Presentation/UAS.UI
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Auth/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Auth/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9SZXNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Auth/ResetPasswordConfirm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9SZXNldFBhc3N3b3JkQ29uZmlybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Authorization/Roles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aG9yaXphdGlvbi9Sb2xlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Home/Menu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9NZW51LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Home/Navbar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9OYXZiYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/KullaniciLookup/KullaniciEkle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3VsbGFuaWNpTG9va3VwL0t1bGxhbmljaUVrbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/KullaniciLookup/KullaniciGuncelle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3VsbGFuaWNpTG9va3VwL0t1bGxhbmljaUd1bmNlbGxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/KullaniciLookup/KullaniciRolAtamasi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3VsbGFuaWNpTG9va3VwL0t1bGxhbmljaVJvbEF0YW1hc2kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/KullaniciLookup/SilinmisKullanicilar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3VsbGFuaWNpTG9va3VwL1NpbGlubWlzS3VsbGFuaWNpbGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Profile/MyProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZmlsZS9NeVByb2ZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Rol/RolEkle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUm9sL1JvbEVrbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Rol/RolGuncelle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUm9sL1JvbEd1bmNlbGxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Settings/AddPageMenuPanel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2V0dGluZ3MvQWRkUGFnZU1lbnVQYW5lbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Settings/SiteSettings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2V0dGluZ3MvU2l0ZVNldHRpbmdzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Shared/Components/Menu/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0NvbXBvbmVudHMvTWVudS9EZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Shared/Components/NavBar/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0NvbXBvbmVudHMvTmF2QmFyL0RlZmF1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Users/GetAllUsers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlcnMvR2V0QWxsVXNlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Users/Paging.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlcnMvUGFnaW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Users/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlcnMvUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Users/Search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlcnMvU2VhcmNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dcancstr/Desktop/UASS/Presentation/UAS.UI/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-2n2ryjesgm

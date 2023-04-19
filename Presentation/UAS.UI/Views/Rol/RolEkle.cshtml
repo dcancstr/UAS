@@ -1,0 +1,200 @@
+﻿@{
+    ViewData["Title"] = "RolEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model UAS.Application.Dto.Rol.CreateRoleAssignMenuListe
+<div class="container mt-5">
+    <div class="row">
+        <div class="card col-6">
+            <h3 class="card-header font-weight-bold">Rol Ekle</h3>
+            <hr />
+            <div class="card-body">
+                <form asp-controller="Rol" asp-action="RolEkle" method="post">
+                    <div class="mb-3">
+                        <label asp-for="RoleName" class="form-label mb-1"><h4>Rol Adı</h4></label>
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="text" class="form-control input-sm" id="rolAdi" asp-for="RoleName">
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <ul>
+                        @for (int i = 1; i < Model.CreateRoleAssignMenus.Count + 1; i++)
+                        {
+                            @if (Model.CreateRoleAssignMenus[i - 1].menuUstID == 0)
+                            {
+                                <li>
+                                    <div class="mb-1">
+                                        <input type="checkbox" class="permission-checkbox" asp-for="@Model.CreateRoleAssignMenus[i-1].IsChecked" id="@Model.CreateRoleAssignMenus[i-1].Id"
+                                        data-parent-id="0"
+                                        data-menu-id="@Model.CreateRoleAssignMenus[i-1].Id" />
+                                        <label class="" asp-for="@Model.CreateRoleAssignMenus[i-1].Id">@Model.CreateRoleAssignMenus[i-1].menuAd</label>
+                                        <input type="hidden" asp-for="@Model.CreateRoleAssignMenus[i-1].Id" />
+                                        <input type="hidden" asp-for="@Model.CreateRoleAssignMenus[i-1].menuAd" />
+                                        <input type="hidden" asp-for="@Model.CreateRoleAssignMenus[i-1].menuUstID" />
+                                    </div>
+                                    <ul>
+                                        @for (int y = 1; y < Model.CreateRoleAssignMenus.Count + 1; y++)
+                                        {
+                                            @if (Model.CreateRoleAssignMenus[i - 1].Id == Model.CreateRoleAssignMenus[y - 1].menuUstID)
+                                            {
+                                                <li>
+                                                    <div class="mb-1">
+                                                        <input type="checkbox" class="permission-checkbox child-item" asp-for="@Model.CreateRoleAssignMenus[y-1].IsChecked"
+                                                      id="@Model.CreateRoleAssignMenus[y-1].Id"
+                                                      data-menu-id="1"
+                                                      data-parent-id="@Model.CreateRoleAssignMenus[i - 1].Id"
+                                                      />
+                                                        <label class="" asp-for="@Model.CreateRoleAssignMenus[y-1].Id">@Model.CreateRoleAssignMenus[y-1].menuAd</label>
+                                                        <input type="hidden" asp-for="@Model.CreateRoleAssignMenus[y-1].Id" />
+                                                        <input type="hidden" asp-for="@Model.CreateRoleAssignMenus[y-1].menuAd" />
+                                                        <input type="hidden" asp-for="@Model.CreateRoleAssignMenus[y-1].menuUstID" />
+                                                    </div>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+
+                            }
+                        }
+                    </ul>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.permission-checkbox').change(function () {
+                var parent = $(this).closest('li'); // en yakın li öğesini bul
+                var children = parent.find('input[type="checkbox"]'); // alt izin kutularını bul
+
+                // Eğer üst izin kutusu seçiliyse, alt izin kutularını da seç
+                if ($(this).is(':checked')) {
+                    children.prop('checked', true);
+
+                    // Üst düzey onay kutusu da seçili hale getir
+                    var topLevelParent = parent.closest('ul').closest('li');
+                    if (topLevelParent.length > 0) {
+                        var topLevelCheckbox = topLevelParent.find('input[type="checkbox"]');
+                        if (!topLevelCheckbox.is(':checked')) {
+                            topLevelCheckbox.prop('checked', true);
+                        }
+                    }
+                }
+                // Eğer üst izin kutusu seçili değilse, alt izin kutularını kaldır
+                else {
+                    children.prop('checked', false);
+
+                    // Hiçbir alt düzey onay kutusu seçili değilse, üst düzey onay kutusu da kaldır
+                    var allChildrenUnchecked = true;
+                    parent.closest('ul').find('input[type="checkbox"]').each(function () {
+                        if ($(this).is(':checked')) {
+                            allChildrenUnchecked = false;
+                            return false; // foreach loop'unu durdurmak için
+                        }
+                    });
+
+                    if (allChildrenUnchecked) {
+                        var topLevelParent = parent.closest('ul').closest('li');
+                        if (topLevelParent.length > 0) {
+                            topLevelParent.find('input[type="checkbox"]').prop('checked', false);
+                        }
+                    }
+                }
+            });
+
+            //Alt checkbox seçilirse, üst checkbox da seçilecek
+            const childItems = document.querySelectorAll('.child-item');
+
+            childItems.forEach(child => {
+                child.addEventListener('change', function () {
+                    const parentId = child.getAttribute('data-parent-id');
+                    const parent = document.getElementById(parentId);
+
+                    if (child.checked && parent && !parent.checked) {
+                        parent.checked = true;
+                    }
+                });
+            });
+
+        });
+    </script>
+}
+
+
+@*
+@if (Model.CreateRoleAssignMenus[i - 1].menuUstID == 0)
+{
+    <li>
+        <div class="form-check mb-1">
+            <input type="checkbox" class="form-check-input" asp-for="@Model.CreateRoleAssignMenus[i-1].IsChecked" id="@Model.CreateRoleAssignMenus[i-1].Id" />
+            <label class="form-control" asp-for="@Model.CreateRoleAssignMenus[i-1].Id">@Model.CreateRoleAssignMenus[i-1].menuAd</label>
+            <input type="hidden" asp-for="@Model.CreateRoleAssignMenus[i-1].Id" />
+            <input type="hidden" asp-for="@Model.CreateRoleAssignMenus[i-1].menuAd" />
+            <input type="hidden" asp-for="@Model.CreateRoleAssignMenus[i-1].menuUstID" />
+        </div>
+        <ul>
+            @for (int y = 1; y < Model.CreateRoleAssignMenus.Count + 1; y++)
+            {
+                @if (Model.CreateRoleAssignMenus[i - 1].Id == Model.CreateRoleAssignMenus[y - 1].menuUstID)
+                {
+                    <li>
+                        <div class="form-check mb-1">
+                            <input type="checkbox" class="form-check-input" asp-for="@Model.CreateRoleAssignMenus[y-1].IsChecked" id="@Model.CreateRoleAssignMenus[y-1].Id" />
+                            <label class="form-control" asp-for="@Model.CreateRoleAssignMenus[y-1].Id">@Model.CreateRoleAssignMenus[y-1].menuAd</label>
+                            <input type="hidden" asp-for="@Model.CreateRoleAssignMenus[y-1].Id" />
+                            <input type="hidden" asp-for="@Model.CreateRoleAssignMenus[y-1].menuAd" />
+                            <input type="hidden" asp-for="@Model.CreateRoleAssignMenus[y-1].menuUstID" />
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+    </li>
+}*@
+
+@*
+$(document).ready(function(){
+        const inputList = document.querySelectorAll(".permission-checkbox");
+
+        const updateChecboxStatus = (list,status)=>{
+              list.each(function(el){ list[el].checked = status; })
+        }
+            $(inputList).click(function(item){
+                //parent
+                if($(this).attr("data-parent-id") == 0 ){
+                    const id = $(this).attr("id");
+
+                    //check All
+                    const childList = $('input[data-parent-id="'+id+'"]');
+
+                    //while click parent checbkox, checked all child elements
+                    updateChecboxStatus(childList,$(this).is(":checked"));
+                }
+                //child
+                else{
+                    const parentId = $(this).attr("data-parent-id");
+                    const parentElement = $('input[data-menu-id="' + parentId + '"]');
+                    const allChilds = $('input[data-parent-id="' + parentId + '"]');
+
+                    let checkParent = [...allChilds].every(el=>el.checked == true);
+                    let uncheckParent = [...allChilds].every(el=>el.checked == false);
+                    if (checkParent) {
+                        parentElement[0].checked = true;
+                    }
+                    if(uncheckParent){
+                        parentElement[0].checked = false;
+                    }
+                }
+
+
+            })
+
+*@

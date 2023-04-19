@@ -1,0 +1,227 @@
+﻿@{
+    Layout = null;
+}
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model UAS.Application.Features.Queries.AppUser.GetAllUser.GetAllUserQueryResponse
+
+@using (Html.BeginForm("Search", "Users", FormMethod.Get))
+{
+    <p>
+        <b>Aranacak Kelime:</b> @Html.TextBox("p")
+        <input type="submit" value="Ara" />
+    </p>
+}
+
+
+
+<!DOCTYPE html>
+
+<html lang="en"
+      class="light-style customizer-hide"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="~/assets/"
+      data-template="horizontal-menu-template">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Kullanıcılar</title>
+
+    <meta name="description" content="" />
+    <link href="~/assets/vendor/css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="~/assets/vendor/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/vendor/css/bootstrap/bootstrap.css.map" />
+    <link href="~/assets/vendor/css/bootstrap/bootstrap.min.css.map" />
+    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <style>
+        #myTable_wrapper {
+            color: white;
+        }
+
+        .paginate_button next:hover {
+            background-color: white !important;
+            color: black !important;
+        }
+
+        .tbl-content {
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        .dataTables_filter input {
+            background-color: lightseagreen !important;
+            color: white !important;
+        }
+
+        .dataTables_length select {
+            background-color: #5cd5a7 !important;
+            color: white !important;
+        }
+
+
+        h1 {
+            font-size: 30px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .tbl-header {
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        .tbl-content {
+            height: 300px;
+            overflow-x: auto;
+            margin-top: 0px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        th {
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 17px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 15px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: 300;
+            font-size: 17px;
+            color: #fff;
+            border-bottom: solid 1px rgba(255,255,255,0.1);
+        }
+
+
+        /* demo styles */
+
+
+        body {
+            background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+            background: linear-gradient(to right, #25c481, #25b7c4);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        section {
+            margin: 50px;
+        }
+
+
+        /* follow me template */
+        .made-with-love {
+            margin-top: 40px;
+            padding: 10px;
+            clear: left;
+            text-align: center;
+            font-size: 10px;
+            font-family: arial;
+            color: #fff;
+        }
+
+            .made-with-love i {
+                font-style: normal;
+                color: #F50057;
+                font-size: 14px;
+                position: relative;
+                top: 2px;
+            }
+
+            .made-with-love a {
+                color: #fff;
+                text-decoration: none;
+            }
+
+                .made-with-love a:hover {
+                    text-decoration: underline;
+                }
+
+
+        /* for custom scrollbar for webkit browser*/
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <section>
+        <!--for demo wrap-->
+
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0" id="myTable" style="font-size:18px;">
+                <thead class="tbl-header">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Surname</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Users.Data)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.UserName</td>
+                            <td>@item.Name</td>
+                            <td>@item.Surname</td>
+                            <td>@item.Email</td>
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+
+
+
+   
+    <br />
+    @*@Html.PagedListPager(Model,page=>Url.Action("Paging",new { page}))*@
+
+    <script src="~/assets/vendor/js/bootstrap.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable({ "pageLength": 3 });
+        });</script>
+
+
+
+</body>
+</html>
+
+

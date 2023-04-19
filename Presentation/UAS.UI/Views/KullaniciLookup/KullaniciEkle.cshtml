@@ -1,0 +1,91 @@
+﻿@using UAS.Application.Utilities.Result.Common;
+
+@{
+    ViewData["Title"] = "Kullanıcı Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model UAS.Application.Features.Commands.AppUser.CreateUser.CreateUserCommandRequest
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="card">
+            <h3 class="card-header font-weight-bold">Kullanıcı Ekle</h3>
+            <hr />
+
+            <div class="card-body">
+                <form id="formAuthentication" class="mb-3" asp-controller="KullaniciLookup" asp-action="KullaniciEkle" method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Ad</label>
+                        <input type="text"
+                               class="form-control"
+                               id="name"
+                               name="name"
+                               placeholder="adınızı giriniz."
+                               autofocus asp-for="Name" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Soyad</label>
+                        <input type="text"
+                               class="form-control"
+                               id="surname"
+                               name="surname"
+                               placeholder="Soyadınızı giriniz."
+                               autofocus asp-for="Surname" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Kullanıcı Adı</label>
+                        <input type="text"
+                               class="form-control"
+                               id="username"
+                               name="username"
+                               placeholder="Kullanıcı adınızı giriniz."
+                               autofocus asp-for="UserName" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Email adresinizi giriniz" asp-for="Email" />
+                    </div>
+                    <div class="mb-3 form-password-toggle">
+                        <label class="form-label" for="password">Şifre</label>
+                        <div class="input-group input-group-merge">
+                            <input type="password"
+                                   id="password"
+                                   class="form-control"
+                                   name="password"
+                                   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                   aria-describedby="password" asp-for="Password" />
+                            @*<span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>*@
+                        </div>
+                    </div>
+                   @*<div class="mb-3 form-password-toggle">
+                        <label class="form-label" for="password">Şifre onay</label>
+                        <div class="input-group input-group-merge">
+                            <input type="password"
+                                   id="passwordConfirm"
+                                   class="form-control"
+                                   name="passwordConfirm"
+                                   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                   aria-describedby="password" asp-for="PasswordConfirm" />
+                        </div>
+                    </div>*@
+
+                    @*<div class="mb-3">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                    <label class="form-check-label" for="terms-conditions">
+                    Okudum,kabul ediyorum
+                    <a href="javascript:void(0);">privacy policy & terms</a>
+                    </label>
+                    </div>
+                    </div>*@
+                    <button class="btn btn-primary d-grid w-100">Kullanıcı Ekle</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    
+}

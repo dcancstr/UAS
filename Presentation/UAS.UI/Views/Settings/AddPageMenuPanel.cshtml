@@ -1,0 +1,139 @@
+﻿@{
+    ViewData["Title"] = "AddPageMenuPanel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<GetMenuKategories>
+
+<div>
+    <div id="inputs-container">
+
+        <input type="text" id="anaAction" placeholder="Action" />
+        <input type="text" id="anaController" placeholder="Controller" />
+        <input type="text" id="anaMenuAdi" placeholder="Menü Adı" />
+        <select id="anaMenuKategorisi">
+            @foreach (var kategori in Model)
+            {
+                <option value="@kategori.Id">@kategori.menuKategoriAd</option>
+            }
+        </select>
+    </div>
+
+    <br>
+    
+    <div>
+        <a href="#" class="btn btn-secondary" onclick="addNewInput()">
+            <i class="fa fa-plus"></i> Yeni Ekle
+        </a>
+
+    </div>
+
+    <br>
+
+    <div id="inputs-container2">
+    </div>
+
+    <hr />
+    <button id="gonderbutton" class="btn btn-primary">Kaydet</button>
+</div>
+
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function addNewInput() {
+            // Create a new container div element
+            var newContainerDiv = document.createElement('div');
+
+            // Create a button to remove the new container
+            var removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.innerText = 'Kaldır';
+            removeButton.addEventListener('click', function () {
+                newContainerDiv.remove();
+            });
+
+            // Add remove button to the new container
+            newContainerDiv.appendChild(removeButton);
+
+            // Create new input elements
+            var newActionInput = document.createElement('input');
+            newActionInput.type = 'text';
+            newActionInput.placeholder = 'Action';
+
+            var newControllerInput = document.createElement('input');
+            newControllerInput.type = 'text';
+            newControllerInput.placeholder = 'Controller';
+
+            var newMenuNameInput = document.createElement('input');
+            newMenuNameInput.type = 'text';
+            newMenuNameInput.placeholder = 'Menü Adı';
+
+            var lineBreak = document.createElement('br');
+
+            // Add new inputs to container
+            newContainerDiv.appendChild(newActionInput);
+            newContainerDiv.appendChild(newControllerInput);
+            newContainerDiv.appendChild(newMenuNameInput);
+            newContainerDiv.appendChild(lineBreak);
+
+            // Add new container div to the inputs container
+            var inputsContainer = document.getElementById('inputs-container2');
+            inputsContainer.appendChild(newContainerDiv);
+
+        }
+
+        $('#gonderbutton').click(function () {
+            var anaAction = document.getElementById('anaAction').value;
+            var anaController = document.getElementById('anaController').value;
+            var anaMenuAdi = document.getElementById('anaMenuAdi').value;
+            var anaMenuKategorisi = $('#anaMenuKategorisi option:selected').val();
+            var liste2 = [];
+            $('#inputs-container2 div').each(function (index, element) {
+                var childs = element.getElementsByTagName('input');
+                var el = {
+                    altController: childs[0].value,
+                    altAction: childs[1].value,
+                    altMenuAdi: childs[2].value
+                }
+                liste2.push(el);
+            });
+            var liste = {
+                anaController: anaController,
+                anaAction: anaAction,
+                anaMenuAdi: anaMenuAdi,
+                menuKategorisi: anaMenuKategorisi,
+                altMenuler: liste2
+            }
+            var requestModel = JSON.stringify(liste);
+            $.ajax({
+                url: '@Url.Action("AddPageMenuPanel","Settings")',
+                type: 'POST',
+                //datatype: "application/json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                data: { model: requestModel },
+                success: function (resp) {
+                    if (resp.isSuccess){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'warning',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                }
+            });
+        })
+
+
+    </script>
+}
